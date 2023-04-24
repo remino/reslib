@@ -6,7 +6,7 @@ describe('lib/js-class.js', () => {
 		it('replaces no-js CSS class in <html> with js class', () => {
 			const {
 				window: { document },
-			} = new JSDOM('<!DOCTYPE html><html class="no-js"></html>')
+			} = new JSDOM('<!DOCTYPE html><html class="no-js">')
 			const { classList } = document.documentElement
 
 			global.document = document
