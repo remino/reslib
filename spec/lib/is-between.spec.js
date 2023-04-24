@@ -1,6 +1,6 @@
-import isBetween from '../../js/is-between.js'
+import isBetween from '../../lib/is-between.js'
 
-describe('js/is-between.js', () => {
+describe('lib/is-between.js', () => {
 	describe('isBetween()', () => {
 		it('returns true if the value is equal to minimum', () => {
 			expect(isBetween(1, 1, 2)).toBe(true)
