@@ -17,6 +17,12 @@
 	"license": "ISC",
 	"main": "index.js",
 	"name": "@remino/reslib",
+	"peerDependencies": {
+		"postcss": "^8.4.25",
+		"postcss-cli": "^10.1.0",
+		"postcss-load-config": "^4.0.1",
+		"postcss-value-parser": "^4.2.0"
+	},
 	"private": true,
 	"scripts": {
 		"lint": "npx eslint",
