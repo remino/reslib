@@ -10,13 +10,25 @@ describe('lib/store.js', () => {
 		describe('store()', () => {
 			it('reads and writes to localStorage', () => {
 				const key = 'storeKey'
-				const name = 'storeName'
+				const path = 'storePath.subPath'
 				const value = 'storeValue'
 
-				store(key, name, value)
+				store(key, path, value)
 
-				expect(store(key, name)).toBe(value)
-				expect(store(key)).toEqual({ [name]: value })
+				expect(store(key, path)).toBe(value)
+				expect(store(key)).toEqual({ storePath: { subPath: value } })
+			})
+
+			it('deletes value from localStorage when value is null', () => {
+				const key = 'storeKey'
+				const path = 'storePath.subPath'
+				const value = 'storeValue'
+
+				store(key, path, value)
+				store(key, path, null)
+
+				expect(store(key, path)).toBeUndefined()
+				expect(store(key)).toEqual({ storePath: {} })
 			})
 		})
 
@@ -31,13 +43,13 @@ describe('lib/store.js', () => {
 
 			describe('podStore()', () => {
 				it('reads and writes to localStorage for current pod', () => {
-					const name = 'storeName'
+					const path = 'storePath.subPath'
 					const value = 'storeValue'
 
-					podStore(name, value)
+					podStore(path, value)
 
-					expect(podStore(name)).toBe(value)
-					expect(podStore()).toEqual({ [name]: value })
+					expect(podStore(path)).toBe(value)
+					expect(podStore()).toEqual({ storePath: { subPath: value } })
 				})
 			})
 		})
