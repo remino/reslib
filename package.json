@@ -31,5 +31,5 @@
 		"test": "npx jasmine"
 	},
 	"type": "module",
-	"version": "0.3.11"
+	"version": "0.3.12"
 }
