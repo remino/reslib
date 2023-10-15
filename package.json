@@ -22,7 +22,8 @@
 		"postcss": "^8.4.25",
 		"postcss-cli": "^10.1.0",
 		"postcss-load-config": "^4.0.1",
-		"postcss-value-parser": "^4.2.0"
+		"postcss-value-parser": "^4.2.0",
+		"three": "^0.157.0"
 	},
 	"private": true,
 	"scripts": {
