@@ -12,7 +12,8 @@
 		"jasmine": "^4.4.0",
 		"jsdoc": "^4.0.2",
 		"jsdom": "^21.1.1",
-		"mock-local-storage": "^1.1.24"
+		"mock-local-storage": "^1.1.24",
+		"typescript": "^5.8.3"
 	},
 	"keywords": [],
 	"license": "ISC",
@@ -27,9 +28,11 @@
 	},
 	"private": true,
 	"scripts": {
+		"build": "tsc",
 		"lint": "npx eslint",
 		"lint:fix": "npx eslint --fix",
-		"test": "npx jasmine"
+		"test": "npx jasmine",
+		"version": "npm build"
 	},
 	"type": "module",
 	"version": "0.3.34"
