@@ -36,7 +36,7 @@
 		"lint": "npx eslint",
 		"lint:fix": "npx eslint --fix",
 		"test": "npx jasmine",
-		"version": "npm run build && git add lib/middleware/*.js"
+		"version": "npm run build && git add lib/middleware/*.js lib/middleware/*.d.ts*"
 	},
 	"type": "module",
 	"version": "0.4.1"
