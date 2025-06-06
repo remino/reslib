@@ -4,7 +4,7 @@
 		"jasmine": true,
 		"node": true
 	},
-	"extends": ["airbnb-base"],
+	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
 	"overrides": [
 		{
 			"files": ["source/nav/nav.js"],
@@ -13,7 +13,13 @@
 			}
 		}
 	],
-	"plugins": ["jasmine"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": 2020,
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+	"plugins": ["import", "jasmine", "@typescript-eslint"],
 	"root": true,
 	"rules": {
 		"arrow-parens": ["error", "as-needed"],
@@ -21,22 +27,16 @@
 			"error",
 			{
 				"mjs": "always",
-				"js": "always"
+				"js": "always",
+				"ts": "always"
 			}
 		],
 		"import/resolver": [
 			"error",
 			{
 				"node": {
-					"extensions": [".mjs", ".js"]
+					"extensions": [".mjs", ".js", ".ts"]
 				}
-			}
-		],
-		"indent": [
-			"error",
-			"tab",
-			{
-				"SwitchCase": 1
 			}
 		],
 		"no-tabs": [
@@ -48,5 +48,10 @@
 		"no-underscore-dangle": 1,
 		"nuxt/no-cjs-in-config": "off",
 		"semi": ["error", "never"]
+	},
+	"settings": {
+		"import/resolver": {
+			"typescript": {}
+		}
 	}
 }
