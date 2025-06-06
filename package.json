@@ -36,7 +36,7 @@
 		"lint": "npx eslint",
 		"lint:fix": "npx eslint --fix",
 		"test": "npx jasmine",
-		"version": "npm build"
+		"version": "npm run build"
 	},
 	"type": "module",
 	"version": "0.3.34"
