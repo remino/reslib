@@ -41,6 +41,7 @@
 		"build": "tsc",
 		"lint": "npx eslint",
 		"lint:fix": "npx eslint --fix",
+		"format": "prettier -w .",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"version": "npm run build && git add lib/middleware/*.js lib/middleware/*.d.ts*"
