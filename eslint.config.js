@@ -14,6 +14,7 @@ export default [
 			'build/**',
 			'coverage/**',
 			'node_modules/**',
+			'**/*.map',
 			'spec/.DS_Store',
 			'spec/support/jasmine.json',
 		],
