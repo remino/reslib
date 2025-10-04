@@ -26,7 +26,8 @@ const proxyFiles =
 				const ext = path.extname(filePath).slice(1)
 				const mime = lookup(ext) || 'application/octet-stream'
 
-				return new Response(file, {
+				// Ensure the body conforms to DOM BodyInit (BufferSource)
+				return new Response(new Uint8Array(file), {
 					status: 200,
 					headers: {
 						'Content-Type': mime,
