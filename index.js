@@ -7,3 +7,5 @@ export * as scrollClick from './lib/scroll/click.js'
 export * as scrollKeys from './lib/scroll/keys.js'
 export * as scrollSections from './lib/scroll/sections.js'
 export * as template from './lib/template.js'
+// Minimal URL helper (TS source in lib/url.ts)
+export { makeAbsolute } from './lib/url.ts'
