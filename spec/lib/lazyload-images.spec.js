@@ -6,7 +6,9 @@ describe('lib/lazyload-images.js', () => {
 		it('replaces lazyload templates with their contents', () => {
 			const {
 				window: { document },
-			} = new JSDOM('<!DOCTYPE html><template class="lazyload"><img class="lazyload" /></template>')
+			} = new JSDOM(
+				'<!DOCTYPE html><template class="lazyload"><img class="lazyload" /></template>',
+			)
 
 			global.document = document
 

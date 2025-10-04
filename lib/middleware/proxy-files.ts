@@ -14,7 +14,7 @@ const proxyFiles =
 	async ({ url }: { url: URL }, next: MiddlewareNext) => {
 		const [src, dest] =
 			Object.entries(config.paths || {}).find(([from]) =>
-				url.pathname.startsWith(from)
+				url.pathname.startsWith(from),
 			) || []
 
 		if (src && dest) {

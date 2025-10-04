@@ -5,7 +5,7 @@ import { defineMiddleware } from 'astro/middleware'
 export type MiddlewareNext = () => Promise<Response | void>
 export type Middleware = (
 	ctx: APIContext,
-	next: MiddlewareNext
+	next: MiddlewareNext,
 ) => Promise<Response | void>
 
 /**
