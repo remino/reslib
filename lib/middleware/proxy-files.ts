@@ -1,4 +1,4 @@
-import type { MiddlewareNext } from './chain'
+import type { MiddlewareNext } from 'astro'
 import { lookup } from 'mrmime'
 import { readFile } from 'fs/promises'
 import path from 'path'
@@ -10,29 +10,20 @@ export interface ProxyFilesConfig {
 	base?: string
 }
 
-/**
- * Astro-compatible file proxy middleware (works safely in libs)
- */
 const proxyFiles =
 	(config: ProxyFilesConfig) =>
 	async ({ url }: { url: URL }, next: MiddlewareNext): Promise<Response> => {
-		// 👇 Safe base detection: don't rely on import.meta.env outside Astro
-		const base =
-			config.base ?? (globalThis as any)?.importMeta?.env?.BASE_URL ?? '/'
-
+		const base = config.base ?? '/'
 		let pathname = url.pathname
 
-		// Strip base if needed
 		if (base !== '/' && pathname.startsWith(base)) {
 			pathname = pathname.slice(base.length)
 			if (!pathname.startsWith('/')) pathname = '/' + pathname
 		}
 
-		const match = Object.entries(config.paths || {}).find(([from]) =>
-			pathname.startsWith(from),
+		const match = Object.entries(config.paths).find(([prefix]) =>
+			pathname.startsWith(prefix),
 		)
-
-		// 👇 Explicitly handle the no-match case with a Response
 		if (!match)
 			return (await next()) ?? new Response('Not Found', { status: 404 })
 
@@ -47,7 +38,9 @@ const proxyFiles =
 
 			return new Response(new Uint8Array(file), {
 				status: 200,
-				headers: { 'Content-Type': mime },
+				headers: {
+					'Content-Type': mime,
+				},
 			})
 		} catch {
 			return new Response('Not Found', { status: 404 })
