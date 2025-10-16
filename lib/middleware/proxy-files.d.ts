@@ -1,11 +1,12 @@
-import type { MiddlewareNext } from 'astro';
-type ProxyFilesRecord = Record<string, string>;
+export type ProxyFilesRecord = Record<string, string>;
 export interface ProxyFilesConfig {
-    paths: ProxyFilesRecord;
     base?: string;
+    paths: ProxyFilesRecord;
 }
-declare const proxyFiles: (config: ProxyFilesConfig) => ({ url }: {
+export type MiddlewareNext = () => Promise<Response | void>;
+export type Middleware = (ctx: {
     url: URL;
-}, next: MiddlewareNext) => Promise<Response>;
+}, next: MiddlewareNext) => Promise<Response | void>;
+declare const proxyFiles: (config: ProxyFilesConfig) => Middleware;
 export default proxyFiles;
 //# sourceMappingURL=proxy-files.d.ts.map
