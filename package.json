@@ -47,5 +47,5 @@
 		"version": "npm run build && git add lib/middleware/*.js lib/middleware/*.d.ts*"
 	},
 	"type": "module",
-	"version": "0.6.2"
+	"version": "0.6.3"
 }
