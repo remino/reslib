@@ -1,18 +1,23 @@
-import type { MiddlewareNext } from 'astro'
 import { lookup } from 'mrmime'
 import { readFile } from 'fs/promises'
 import path from 'path'
 
-type ProxyFilesRecord = Record<string, string>
+export type ProxyFilesRecord = Record<string, string>
 
 export interface ProxyFilesConfig {
-	paths: ProxyFilesRecord
 	base?: string
+	paths: ProxyFilesRecord
 }
 
+export type MiddlewareNext = () => Promise<Response | void>
+export type Middleware = (
+	ctx: { url: URL },
+	next: MiddlewareNext,
+) => Promise<Response | void>
+
 const proxyFiles =
-	(config: ProxyFilesConfig) =>
-	async ({ url }: { url: URL }, next: MiddlewareNext): Promise<Response> => {
+	(config: ProxyFilesConfig): Middleware =>
+	async ({ url }, next) => {
 		const base = config.base ?? '/'
 		let pathname = url.pathname
 
@@ -21,16 +26,10 @@ const proxyFiles =
 			if (!pathname.startsWith('/')) pathname = '/' + pathname
 		}
 
-		const match = Object.entries(config.paths || {}).find(([from]) =>
+		const match = Object.entries(config.paths).find(([from]) =>
 			pathname.startsWith(from),
 		)
-
-		if (!match) {
-			const result = await next()
-			return result instanceof Response
-				? result
-				: new Response('Not Found', { status: 404 })
-		}
+		if (!match) return next()
 
 		const [src, dest] = match
 		const relPath = pathname.slice(src.length)
@@ -43,9 +42,7 @@ const proxyFiles =
 
 			return new Response(new Uint8Array(file), {
 				status: 200,
-				headers: {
-					'Content-Type': mime,
-				},
+				headers: { 'Content-Type': mime },
 			})
 		} catch {
 			return new Response('Not Found', { status: 404 })
