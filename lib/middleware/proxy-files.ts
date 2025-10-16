@@ -21,14 +21,14 @@ const proxyFiles =
 			if (!pathname.startsWith('/')) pathname = '/' + pathname
 		}
 
-		const match = Object.entries(config.paths).find(([prefix]) =>
-			pathname.startsWith(prefix),
+		const match = Object.entries(config.paths || {}).find(([from]) =>
+			pathname.startsWith(from),
 		)
 
 		if (!match) {
-			const res = await next()
-			return res instanceof Response
-				? res
+			const result = await next()
+			return result instanceof Response
+				? result
 				: new Response('Not Found', { status: 404 })
 		}
 
