@@ -24,8 +24,13 @@ const proxyFiles =
 		const match = Object.entries(config.paths).find(([prefix]) =>
 			pathname.startsWith(prefix),
 		)
-		if (!match)
-			return (await next()) ?? new Response('Not Found', { status: 404 })
+
+		if (!match) {
+			const res = await next()
+			return res instanceof Response
+				? res
+				: new Response('Not Found', { status: 404 })
+		}
 
 		const [src, dest] = match
 		const relPath = pathname.slice(src.length)
