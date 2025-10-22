@@ -1,3 +1,4 @@
+import type { MiddlewareHandler } from 'astro'
 import { lookup } from 'mrmime'
 import { readFile } from 'fs/promises'
 import path from 'path'
@@ -9,14 +10,8 @@ export interface ProxyFilesConfig {
 	paths: ProxyFilesRecord
 }
 
-export type MiddlewareNext = () => Promise<Response | void>
-export type Middleware = (
-	ctx: { url: URL },
-	next: MiddlewareNext,
-) => Promise<Response | void>
-
 const proxyFiles =
-	(config: ProxyFilesConfig): Middleware =>
+	(config: ProxyFilesConfig): MiddlewareHandler =>
 	async ({ url }, next) => {
 		const base = config.base ?? '/'
 		let pathname = url.pathname
