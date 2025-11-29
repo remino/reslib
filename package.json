@@ -48,5 +48,14 @@
     "typescript-eslint": "^8.0.0",
     "vitest": "^2.0.5"
   },
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  }
 }
