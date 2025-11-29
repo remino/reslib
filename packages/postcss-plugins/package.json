@@ -1,6 +1,6 @@
 {
   "name": "@remino/postcss-plugins",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Collection of PostCSS utilities (dvh/lvh fallbacks, font-variation helpers).",
   "type": "module",
   "main": "./dist/index.js",
