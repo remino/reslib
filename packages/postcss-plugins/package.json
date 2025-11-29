@@ -11,20 +11,35 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js"
     },
+    "./addDvh": {
+      "types": "./dist/addDvh.d.ts",
+      "import": "./dist/addDvh.js",
+      "require": "./dist/addDvh.js"
+    },
     "./add-dvh": {
-      "types": "./dist/add-dvh.d.ts",
-      "import": "./dist/add-dvh.js",
-      "require": "./dist/add-dvh.js"
+      "types": "./dist/addDvh.d.ts",
+      "import": "./dist/addDvh.js",
+      "require": "./dist/addDvh.js"
+    },
+    "./addLvh": {
+      "types": "./dist/addLvh.d.ts",
+      "import": "./dist/addLvh.js",
+      "require": "./dist/addLvh.js"
     },
     "./add-lvh": {
-      "types": "./dist/add-lvh.d.ts",
-      "import": "./dist/add-lvh.js",
-      "require": "./dist/add-lvh.js"
+      "types": "./dist/addLvh.d.ts",
+      "import": "./dist/addLvh.js",
+      "require": "./dist/addLvh.js"
+    },
+    "./addFontVariation": {
+      "types": "./dist/addFontVariation.d.ts",
+      "import": "./dist/addFontVariation.js",
+      "require": "./dist/addFontVariation.js"
     },
     "./add-font-variation": {
-      "types": "./dist/add-font-variation.d.ts",
-      "import": "./dist/add-font-variation.js",
-      "require": "./dist/add-font-variation.js"
+      "types": "./dist/addFontVariation.d.ts",
+      "import": "./dist/addFontVariation.js",
+      "require": "./dist/addFontVariation.js"
     }
   },
   "files": [
