@@ -1,6 +1,6 @@
 {
   "name": "@remino/reslib",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Rémino Site Library aggregate entry point",
   "type": "module",
   "main": "./dist/index.js",
