@@ -1,51 +1,52 @@
 {
-	"author": {
-		"name": "Rémino Rem",
-		"url": "https://remino.net/"
-	},
-	"description": "Rémino Site Library: Common JavaScript and Ruby functions for websites by Rémino",
-	"devDependencies": {
-		"@eslint/js": "^9.37.0",
-		"@typescript-eslint/eslint-plugin": "^8.33.1",
-		"@typescript-eslint/parser": "^8.33.1",
-		"astro": "^5.8.0",
-		"eslint": "^9.37.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-import-resolver-typescript": "^4.4.3",
-		"eslint-plugin-import-x": "^4.3.1",
-		"eslint-plugin-n": "^17.15.1",
-		"eslint-plugin-promise": "^7.1.0",
-		"eslint-plugin-vitest": "^0.5.4",
-		"globals": "^15.14.0",
-		"jsdoc": "^4.0.2",
-		"jsdom": "^21.1.1",
-		"mock-local-storage": "^1.1.24",
-		"prettier": "^3.3.3",
-		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.0.0",
-		"vitest": "^2.0.5"
-	},
-	"keywords": [],
-	"license": "ISC",
-	"main": "index.js",
-	"name": "@remino/reslib",
-	"peerDependencies": {
-		"postcss": "^8.4.25",
-		"postcss-cli": "^10.1.0",
-		"postcss-load-config": "^4.0.1",
-		"postcss-value-parser": "^4.2.0",
-		"three": "^0.157.0"
-	},
-	"private": true,
-	"scripts": {
-		"build": "tsc",
-		"lint": "npx eslint",
-		"lint:fix": "npx eslint --fix",
-		"format": "prettier -w .",
-		"test": "vitest run",
-		"test:watch": "vitest",
-		"version": "npm run build && git add lib/middleware/*.js lib/middleware/*.d.ts*"
-	},
-	"type": "module",
-	"version": "0.6.4"
+  "name": "@remino/reslib",
+  "version": "1.0.0",
+  "description": "Rémino Site Library aggregate entry point",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "author": {
+    "name": "Rémino Rem",
+    "url": "https://remino.net/"
+  },
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && npm run build:packages",
+    "build:packages": "npm run build --workspaces --if-present",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier -w .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rimraf dist packages/*/dist"
+  },
+  "dependencies": {
+    "@remino/functions": "^1.0.0",
+    "@remino/scroll": "^1.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "@types/three": "^0.170.0",
+    "@typescript-eslint/eslint-plugin": "^8.33.1",
+    "@typescript-eslint/parser": "^8.33.1",
+    "astro": "^5.8.0",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^4.4.3",
+    "eslint-plugin-import-x": "^4.3.1",
+    "eslint-plugin-n": "^17.15.1",
+    "eslint-plugin-promise": "^7.1.0",
+    "eslint-plugin-vitest": "^0.5.4",
+    "globals": "^15.14.0",
+    "jsdoc": "^4.0.2",
+    "jsdom": "^21.1.1",
+    "mock-local-storage": "^1.1.24",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.0.5"
+  },
+  "workspaces": ["packages/*"]
 }

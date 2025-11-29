@@ -1,5 +1,30 @@
 # @remino/reslib
 
-Personal JavaScript package to help me build sites with it and [mansite](https://github.com/remino/mansite).
+This repository now hosts a full TypeScript monorepo for the Rémino Site Library.
+Every utility lives in its own publishable package under `packages/`, and the
+`@remino/reslib` package aggregates the most common exports for convenience.
 
-Use at your own risk.
+## Packages
+
+- `@remino/reslib` – umbrella package (this repo) that re-exports the other libs
+- `@remino/functions` – single entrypoint for everyday helpers (dig/undig, logger, js-class toggles, lazyload-images, store/template/url helpers, etc.)
+- `@remino/postcss-plugins` – bundle of PostCSS helpers (dvh/lvh/variation)
+- `@remino/remark-figure-paragraphs` – remark figure helper
+- `@remino/remark-video-directive` – remark directive handler
+- `@remino/rehype-back-to-top-nav` – rehype “back to top” helper
+- `@remino/scroll` – scroll/section controls
+
+See the individual package READMEs/entry files for details on usage.
+
+## Development
+
+```bash
+npm install            # install deps across the workspace
+npm run build          # builds each package in dependency order
+npm test               # runs the Vitest suite for every package
+npm run lint           # eslint across the repo
+npm run format         # run prettier
+```
+
+Each package can also be built in isolation via `npm run build --workspace <name>`
+when preparing a release.

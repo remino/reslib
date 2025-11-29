@@ -1,0 +1,53 @@
+{
+	"name": "@remino/scroll",
+	"version": "1.0.0",
+	"description": "Scrolling helpers for mansite layouts",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./anchors": {
+			"types": "./dist/anchors.d.ts",
+			"import": "./dist/anchors.js"
+		},
+		"./auto": {
+			"types": "./dist/auto.d.ts",
+			"import": "./dist/auto.js"
+		},
+		"./click": {
+			"types": "./dist/click.d.ts",
+			"import": "./dist/click.js"
+		},
+		"./keys": {
+			"types": "./dist/keys.d.ts",
+			"import": "./dist/keys.js"
+		},
+		"./load": {
+			"types": "./dist/load.d.ts",
+			"import": "./dist/load.js"
+		},
+		"./sections": {
+			"types": "./dist/sections.d.ts",
+			"import": "./dist/sections.js"
+		}
+	},
+	"files": ["dist"],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"clean": "rimraf dist",
+		"lint": "eslint src --max-warnings=0",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@remino/functions": "^1.0.0"
+	},
+	"author": {
+		"name": "Rémino Rem",
+		"url": "https://remino.net/"
+	},
+	"license": "ISC"
+}

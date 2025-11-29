@@ -1,0 +1,38 @@
+{
+  "name": "@remino/postcss-plugins",
+  "version": "1.0.0",
+  "description": "Collection of PostCSS utilities (dvh/lvh fallbacks, font-variation helpers).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./add-dvh": {
+      "types": "./dist/add-dvh.d.ts",
+      "import": "./dist/add-dvh.js"
+    },
+    "./add-lvh": {
+      "types": "./dist/add-lvh.d.ts",
+      "import": "./dist/add-lvh.js"
+    },
+    "./add-font-variation": {
+      "types": "./dist/add-font-variation.d.ts",
+      "import": "./dist/add-font-variation.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "postcss-value-parser": "^4.2.0"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.25"
+  }
+}

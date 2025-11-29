@@ -11,6 +11,7 @@ export default [
 	{
 		ignores: [
 			'dist/**',
+			'packages/*/dist/**',
 			'build/**',
 			'coverage/**',
 			'node_modules/**',
@@ -75,7 +76,7 @@ export default [
 
 	// Browser-oriented source files: relax Node builtins checks
 	{
-		files: ['lib/**/*.{js,ts}'],
+		files: ['packages/**/*.{js,ts}'],
 		rules: {
 			'n/no-unsupported-features/node-builtins': 'off',
 			'n/no-extraneous-import': 'off',

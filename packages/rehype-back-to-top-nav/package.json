@@ -1,0 +1,26 @@
+{
+  "name": "@remino/rehype-back-to-top-nav",
+  "version": "0.1.0",
+  "description": "Rehype plugin that rewrites back-to-top paragraphs into accessible <nav> blocks.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "unist-util-visit": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@types/hast": "^3.0.4"
+  }
+}

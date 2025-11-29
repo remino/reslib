@@ -1,0 +1,98 @@
+const AUTO_SCROLL_TIMEOUT = 30000
+const AUTO_SCROLL_PAGE_DURATION = 2000
+const AUTO_SCROLL_CANCEL_THRESHOLD = 100
+const AUTO_SCROLL_STOP_THRESHOLD = 20
+
+let autoScrollTimeout: number | undefined
+let currentPos = 0
+let frame: number | null = null
+let time = 0
+
+const getBodyHeight = () => document.body.clientHeight
+const getScrollY = () => window.scrollY
+const getWinHeight = () => window.innerHeight
+const isAutoScrollActive = () => frame !== null
+const isPastThreshold = () => getScrollY() > AUTO_SCROLL_CANCEL_THRESHOLD
+
+const autoScrollStop = (): void => {
+	if (frame !== null) {
+		cancelAnimationFrame(frame)
+		frame = null
+	}
+
+	document.documentElement.classList.remove('auto-scroll')
+}
+
+const cancelStart = (): void => {
+	if (!isPastThreshold()) return
+	clearTimeout(autoScrollTimeout)
+	window.removeEventListener('scroll', cancelStart)
+}
+
+const autoScroll = (): void => {
+	const bodyHeight = getBodyHeight()
+	const winHeight = getWinHeight()
+	const duration =
+		AUTO_SCROLL_PAGE_DURATION * ((bodyHeight - winHeight) / winHeight)
+	const now = Date.now()
+	const elapsed = now - time
+	const progress = elapsed / duration
+	const increment = progress * (bodyHeight - winHeight)
+
+	if (Math.abs(currentPos - getScrollY()) > AUTO_SCROLL_STOP_THRESHOLD) {
+		autoScrollStop()
+		return
+	}
+
+	const pos = Math.floor(currentPos + increment)
+	window.scrollTo({ left: 0, top: pos, behavior: 'instant' })
+
+	currentPos = pos
+	time = now
+	frame = requestAnimationFrame(autoScroll)
+}
+
+const autoScrollStart = (): void => {
+	currentPos = getScrollY()
+	time = Date.now()
+	window.removeEventListener('scroll', cancelStart)
+	document.documentElement.classList.add('auto-scroll')
+	autoScroll()
+}
+
+const toggleAutoScroll = (): void => {
+	if (frame !== null) {
+		autoScrollStop()
+	} else {
+		autoScrollStart()
+	}
+}
+
+const keyPressed = (event: KeyboardEvent): void => {
+	const { key, shiftKey, ctrlKey, altKey, metaKey } = event
+	if (shiftKey || ctrlKey || altKey || metaKey) return
+
+	switch (true) {
+		case [',', 'a'].includes(key):
+			toggleAutoScroll()
+			event.preventDefault()
+			event.stopPropagation()
+			break
+
+		case isAutoScrollActive():
+			autoScrollStop()
+			break
+
+		default:
+			break
+	}
+}
+
+const init = (): void => {
+	if (isPastThreshold()) return
+	autoScrollTimeout = window.setTimeout(autoScrollStart, AUTO_SCROLL_TIMEOUT)
+	window.addEventListener('scroll', cancelStart)
+	document.addEventListener('keydown', keyPressed)
+}
+
+export default init
