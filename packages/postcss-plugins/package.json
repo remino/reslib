@@ -8,22 +8,28 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     },
     "./add-dvh": {
       "types": "./dist/add-dvh.d.ts",
-      "import": "./dist/add-dvh.js"
+      "import": "./dist/add-dvh.js",
+      "require": "./dist/add-dvh.js"
     },
     "./add-lvh": {
       "types": "./dist/add-lvh.d.ts",
-      "import": "./dist/add-lvh.js"
+      "import": "./dist/add-lvh.js",
+      "require": "./dist/add-lvh.js"
     },
     "./add-font-variation": {
       "types": "./dist/add-font-variation.d.ts",
-      "import": "./dist/add-font-variation.js"
+      "import": "./dist/add-font-variation.js",
+      "require": "./dist/add-font-variation.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
