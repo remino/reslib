@@ -27,3 +27,4 @@ const init = ({
 }
 
 export default init
+export { jumpToSection } from './sections'
