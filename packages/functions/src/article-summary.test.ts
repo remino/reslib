@@ -25,25 +25,6 @@ describe('getArticleSummary', () => {
 		expect(summary).toBe('Frontmatter summary')
 	})
 
-	it('uses description when summary is missing', () => {
-		const summary = getArticleSummary({
-			content: 'Full article body.',
-			description: 'Frontmatter description',
-		})
-
-		expect(summary).toBe('Frontmatter description')
-	})
-
-	it('prefers summary over description', () => {
-		const summary = getArticleSummary({
-			content: 'Full article body.',
-			summary: 'Frontmatter summary',
-			description: 'Frontmatter description',
-		})
-
-		expect(summary).toBe('Frontmatter summary')
-	})
-
 	it('uses the last full paragraph within the max length when no explicit summary exists', () => {
 		const summary = getArticleSummary({
 			content: [
