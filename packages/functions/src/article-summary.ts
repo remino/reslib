@@ -1,6 +1,7 @@
 export type ArticleSummaryInput = {
   content?: string | null
   summary?: string | null
+  description?: string | null
   moreMarker?: string
   maxLength?: number
 }
@@ -74,6 +75,7 @@ export function getArticleSummary(
 ): string | undefined {
 	const content = input.content?.trim() ?? ''
 	const explicitSummary = normalizeWhitespace(input.summary ?? '')
+	const explicitDescription = normalizeWhitespace(input.description ?? '')
 	const marker = input.moreMarker ?? defaultMoreMarker
 	const maxLength = input.maxLength ?? defaultMaxLength
 
@@ -83,6 +85,7 @@ export function getArticleSummary(
 	}
 
 	if (explicitSummary) return explicitSummary
+	if (explicitDescription) return explicitDescription
 
 	if (!content) return undefined
 
