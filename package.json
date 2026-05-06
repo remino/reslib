@@ -16,11 +16,14 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && npm run build:packages",
     "build:packages": "npm run build --workspaces --if-present",
+    "changeset": "changeset",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier -w .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "version:packages": "changeset version && npm run build && npm install --package-lock-only --ignore-scripts",
+    "release": "npm run version:packages",
     "clean": "rimraf dist packages/*/dist"
   },
   "dependencies": {
@@ -41,6 +44,7 @@
     "eslint-plugin-promise": "^7.1.0",
     "eslint-plugin-vitest": "^0.5.4",
     "globals": "^15.14.0",
+    "@changesets/cli": "^2.29.7",
     "jsdoc": "^4.0.2",
     "jsdom": "^21.1.1",
     "mock-local-storage": "^1.1.24",
