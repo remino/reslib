@@ -52,6 +52,7 @@ const getPodName = (): string => {
 export const podStore = <T = StoreValue>(
 	path?: string,
 	value?: T | null,
-): T | Record<string, unknown> | null | undefined => store<T>(getPodName(), path, value)
+): T | Record<string, unknown> | null | undefined =>
+	store<T>(getPodName(), path, value)
 
 export default store

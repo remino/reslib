@@ -22,10 +22,12 @@ const changeButtonMessage = (
 }
 
 const disableForm = (form: HTMLFormElement, state: string) => {
-	form.querySelectorAll<HTMLButtonElement | HTMLInputElement>('button, input').forEach((el) => {
-		el.disabled = true
-		changeButtonMessage(el, state)
-	})
+	form
+		.querySelectorAll<HTMLButtonElement | HTMLInputElement>('button, input')
+		.forEach((el) => {
+			el.disabled = true
+			changeButtonMessage(el, state)
+		})
 }
 
 const submitForm = async (event: SubmitEvent) => {

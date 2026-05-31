@@ -59,7 +59,6 @@ const unload = (target: Element): void => {
 
 const enter = (target: Element): void => {
 	dispatchEvent(target, 'reslib:enter:before')
-
 	;[getPrecedingTarget(target), target, getFollowingTarget(target)]
 		.filter((value): value is Element => Boolean(value))
 		.forEach(load)
@@ -69,7 +68,6 @@ const enter = (target: Element): void => {
 
 const exit = (target: Element): void => {
 	dispatchEvent(target, 'reslib:exit:before')
-
 	;[getPrecedingTarget(target), target, getFollowingTarget(target)]
 		.filter((value): value is Element => Boolean(value))
 		.filter((section) => !isCurrentSection(section as HTMLElement))

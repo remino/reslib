@@ -23,7 +23,10 @@ export const start = ({
 }
 
 const init = (options?: InitOptions): void => {
-	if (document.readyState === 'interactive' || document.readyState === 'complete') {
+	if (
+		document.readyState === 'interactive' ||
+		document.readyState === 'complete'
+	) {
 		void start(options)
 		return
 	}

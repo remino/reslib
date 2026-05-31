@@ -21,8 +21,7 @@ const clickedAnchor = (event: MouseEvent, opts?: ScrollToOptions): void => {
 	} else {
 		const name = href.slice(1)
 		const element =
-			document.getElementById(name) ||
-			document.getElementsByName(name)[0]
+			document.getElementById(name) || document.getElementsByName(name)[0]
 
 		if (element instanceof HTMLElement) {
 			jumpToSection(element, opts)
@@ -37,9 +36,11 @@ const clickedAnchor = (event: MouseEvent, opts?: ScrollToOptions): void => {
 }
 
 export const prepareAnchors = (opts?: ScrollToOptions): void => {
-	document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
-		anchor.addEventListener('click', (event) => clickedAnchor(event, opts))
-	})
+	document
+		.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')
+		.forEach((anchor) => {
+			anchor.addEventListener('click', (event) => clickedAnchor(event, opts))
+		})
 }
 
 export const updateUrlAnchor = (): void => {
@@ -65,7 +66,8 @@ export const updateUrlAnchorOnTimeout = (): void => {
 
 const init = (opts?: ScrollToOptions): void => {
 	if (
-		window.getComputedStyle(document.documentElement).scrollBehavior !== 'smooth'
+		window.getComputedStyle(document.documentElement).scrollBehavior !==
+		'smooth'
 	) {
 		prepareAnchors(opts)
 	}

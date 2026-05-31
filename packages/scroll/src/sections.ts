@@ -87,7 +87,10 @@ export const getPreviousSection = (): ScrollSection | null => {
 export const clearScrollTargetWhenArrived = (): void => {
 	const target = getScrollTarget()
 	if (target === null) return
-	if (window.scrollY === Math.ceil(target) || window.scrollY === Math.floor(target)) {
+	if (
+		window.scrollY === Math.ceil(target) ||
+		window.scrollY === Math.floor(target)
+	) {
 		clearScrollTarget()
 	}
 }

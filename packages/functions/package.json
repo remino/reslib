@@ -1,15 +1,15 @@
 {
-  "name": "@remino/functions",
-  "version": "1.1.1",
-  "description": "Framework-agnostic helper functions shared across Rémino sites.",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "clean": "rimraf dist"
-  }
+	"name": "@remino/functions",
+	"version": "1.1.1",
+	"description": "Framework-agnostic helper functions shared across Rémino sites.",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"clean": "rimraf dist"
+	}
 }

@@ -1,6 +1,4 @@
-export const loadTemplate = (
-	template: HTMLTemplateElement,
-): Element | null => {
+export const loadTemplate = (template: HTMLTemplateElement): Element | null => {
 	const fragment = template.content.cloneNode(true) as DocumentFragment
 
 	const element = fragment.firstElementChild

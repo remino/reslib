@@ -65,12 +65,12 @@ const ensureData = (node: RemarkNode) => {
 
 const remarkFigureParagraphs = () => {
 	return (tree: RemarkNode) => {
-		walk(tree, node => {
+		walk(tree, (node) => {
 			const children = node.children
 			if (!children || children.length === 0 || node.type !== 'paragraph')
 				return
 
-				const [firstChild, ...rest] = children
+			const [firstChild, ...rest] = children
 
 			const hasLeadingImage =
 				isImage(firstChild) || isLinkWithSingleImage(firstChild)
@@ -83,11 +83,11 @@ const remarkFigureParagraphs = () => {
 				return
 			}
 
-			if (rest.some(child => nodeHasImage(child))) return
+			if (rest.some((child) => nodeHasImage(child))) return
 
 			const captionNodes = trimCaptionStart([...rest])
 			const hasCaptionContent = captionNodes.some(
-				child => !isWhitespaceText(child),
+				(child) => !isWhitespaceText(child),
 			)
 
 			const data = ensureData(node)
@@ -98,11 +98,11 @@ const remarkFigureParagraphs = () => {
 				return
 			}
 
-				const caption: RemarkNode = {
-					type: 'paragraph',
-					children: captionNodes,
-					data: { hName: 'figcaption' },
-				}
+			const caption: RemarkNode = {
+				type: 'paragraph',
+				children: captionNodes,
+				data: { hName: 'figcaption' },
+			}
 
 			node.children = [firstChild, caption]
 		})

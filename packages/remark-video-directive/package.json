@@ -1,20 +1,22 @@
 {
-  "name": "@remino/remark-video-directive",
-  "version": "0.1.0",
-  "description": "Remark directive handler for :video[] blocks with sensible HTML output.",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "files": ["dist"],
-  "sideEffects": false,
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "clean": "rimraf dist"
-  }
+	"name": "@remino/remark-video-directive",
+	"version": "0.1.0",
+	"description": "Remark directive handler for :video[] blocks with sensible HTML output.",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"sideEffects": false,
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"clean": "rimraf dist"
+	}
 }

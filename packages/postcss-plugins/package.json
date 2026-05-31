@@ -1,59 +1,59 @@
 {
-  "name": "@remino/postcss-plugins",
-  "version": "1.0.3",
-  "description": "Collection of PostCSS utilities (dvh/lvh fallbacks, font-variation helpers).",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
-    "./addDvh": {
-      "types": "./dist/addDvh.d.ts",
-      "import": "./dist/addDvh.js",
-      "require": "./dist/addDvh.js"
-    },
-    "./add-dvh": {
-      "types": "./dist/addDvh.d.ts",
-      "import": "./dist/addDvh.js",
-      "require": "./dist/addDvh.js"
-    },
-    "./addLvh": {
-      "types": "./dist/addLvh.d.ts",
-      "import": "./dist/addLvh.js",
-      "require": "./dist/addLvh.js"
-    },
-    "./add-lvh": {
-      "types": "./dist/addLvh.d.ts",
-      "import": "./dist/addLvh.js",
-      "require": "./dist/addLvh.js"
-    },
-    "./addFontVariation": {
-      "types": "./dist/addFontVariation.d.ts",
-      "import": "./dist/addFontVariation.js",
-      "require": "./dist/addFontVariation.js"
-    },
-    "./add-font-variation": {
-      "types": "./dist/addFontVariation.d.ts",
-      "import": "./dist/addFontVariation.js",
-      "require": "./dist/addFontVariation.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "clean": "rimraf dist",
-    "test": "vitest run"
-  },
-  "dependencies": {
-    "postcss-value-parser": "^4.2.0"
-  },
-  "peerDependencies": {
-    "postcss": "^8.4.25"
-  }
+	"name": "@remino/postcss-plugins",
+	"version": "1.0.3",
+	"description": "Collection of PostCSS utilities (dvh/lvh fallbacks, font-variation helpers).",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		},
+		"./addDvh": {
+			"types": "./dist/addDvh.d.ts",
+			"import": "./dist/addDvh.js",
+			"require": "./dist/addDvh.js"
+		},
+		"./add-dvh": {
+			"types": "./dist/addDvh.d.ts",
+			"import": "./dist/addDvh.js",
+			"require": "./dist/addDvh.js"
+		},
+		"./addLvh": {
+			"types": "./dist/addLvh.d.ts",
+			"import": "./dist/addLvh.js",
+			"require": "./dist/addLvh.js"
+		},
+		"./add-lvh": {
+			"types": "./dist/addLvh.d.ts",
+			"import": "./dist/addLvh.js",
+			"require": "./dist/addLvh.js"
+		},
+		"./addFontVariation": {
+			"types": "./dist/addFontVariation.d.ts",
+			"import": "./dist/addFontVariation.js",
+			"require": "./dist/addFontVariation.js"
+		},
+		"./add-font-variation": {
+			"types": "./dist/addFontVariation.d.ts",
+			"import": "./dist/addFontVariation.js",
+			"require": "./dist/addFontVariation.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"clean": "rimraf dist",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"postcss-value-parser": "^4.2.0"
+	},
+	"peerDependencies": {
+		"postcss": "^8.4.25"
+	}
 }

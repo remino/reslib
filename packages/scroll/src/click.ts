@@ -10,7 +10,10 @@ const hasClickedViewportUpperHalf = ({ clientY }: MouseEvent): boolean =>
 const hasClickedViewportLowerHalf = ({ clientY }: MouseEvent): boolean =>
 	clientY >= window.innerHeight / 2
 
-const reactToClick = (target: EventTarget | null, click: MouseEvent): boolean => {
+const reactToClick = (
+	target: EventTarget | null,
+	click: MouseEvent,
+): boolean => {
 	if (!(target instanceof HTMLElement)) return false
 
 	switch (true) {
