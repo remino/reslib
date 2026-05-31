@@ -39,13 +39,20 @@ export const loadImage = (img: HTMLImageElement): void => {
 	const dataSrc = img.getAttribute('data-src')
 	if (!dataSrc) return
 	img.setAttribute('src', dataSrc)
-	img.dispatchEvent(new CustomEvent('reslib:lazyload:load', { detail: { img } }))
+	img.dispatchEvent(
+		new CustomEvent('reslib:lazyload:load', { detail: { img } }),
+	)
 }
 
 export const unloadImage = (img: HTMLImageElement): void => {
 	if (img.src === EMPTY_IMAGE) return
+	if (!img.hasAttribute('data-src')) {
+		img.setAttribute('data-src', img.src)
+	}
 	img.setAttribute('src', EMPTY_IMAGE)
-	img.dispatchEvent(new CustomEvent('reslib:lazyload:unload', { detail: { img } }))
+	img.dispatchEvent(
+		new CustomEvent('reslib:lazyload:unload', { detail: { img } }),
+	)
 }
 
 export const loadImagesInRange = (): void => {
