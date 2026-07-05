@@ -80,8 +80,7 @@ packages that are not already on npm.
 	```
 
 	This consumes the changeset, updates package versions, rebuilds packages, and
-	refreshes `package-lock.json`. Changesets commits those generated release
-	changes automatically.
+	commits those generated release changes automatically.
 
 4. Verify package versions:
 
