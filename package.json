@@ -23,6 +23,7 @@
 		"format:check": "prettier --check .",
 		"test": "vitest run",
 		"test:watch": "vitest",
+		"version:list": "node bin/version-list.js",
 		"version:packages": "changeset version && npm run build && npm install --package-lock-only --ignore-scripts",
 		"release": "npm run version:packages",
 		"publish:packages": "changeset publish",
