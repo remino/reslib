@@ -35,10 +35,10 @@ This repo uses Changesets for packages under `packages/*`. The root
 `@remino/reslib` package is not part of the Changesets workspace, so do not add
 it to changeset files unless the workspace config is changed first.
 
-`npm run release` prepares package versions locally. It does not publish
-anything. `npm run publish:packages` is the explicit npm publish step, and
-Changesets will publish the bumped workspace packages that are not already on
-npm.
+`npm run release` prepares package versions locally and commits the generated
+version changes. It does not publish anything. `npm run publish:packages` is the
+explicit npm publish step, and Changesets will publish the bumped workspace
+packages that are not already on npm.
 
 1. Make the code/docs change and commit it with a changeset:
 
@@ -73,14 +73,15 @@ npm.
 	- @remino/functions 1.2.0
 	```
 
-3. Apply the version bump and rebuild:
+3. Apply the version bump, rebuild, and auto-commit the release changes:
 
 	```bash
 	npm run release
 	```
 
 	This consumes the changeset, updates package versions, rebuilds packages, and
-	refreshes `package-lock.json`.
+	refreshes `package-lock.json`. Changesets commits those generated release
+	changes automatically.
 
 4. Verify package versions:
 
@@ -88,15 +89,7 @@ npm.
 	npm run version:list
 	```
 
-5. Commit the generated release changes:
-
-	```bash
-	git status
-	git add .
-	git commit -m "Version packages"
-	```
-
-6. Publish the bumped packages:
+5. Publish the bumped packages:
 
 	```bash
 	npm run publish:packages
@@ -104,3 +97,9 @@ npm.
 
 	Do not run `npm publish --workspace ...` unless `changeset publish` fails and
 	you intentionally want to bypass Changesets.
+
+6. Push the release commit and package tags:
+
+	```bash
+	git push --follow-tags
+	```
