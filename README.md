@@ -28,3 +28,32 @@ npm run format         # run prettier
 
 Each package can also be built in isolation via `npm run build --workspace <name>`
 when preparing a release.
+
+## Deploy / Publish
+
+1. Add a Changeset for any user-facing package change:
+
+	```bash
+	npm run changeset
+	```
+
+2. Verify the workspace:
+
+	```bash
+	npm test
+	npm run build
+	```
+
+3. Apply version bumps, rebuild packages, and refresh `package-lock.json`:
+
+	```bash
+	npm run release
+	```
+
+4. Commit the source changes, generated version changes, and lockfile update.
+
+5. Publish packages to npm:
+
+	```bash
+	npm run publish:packages
+	```
