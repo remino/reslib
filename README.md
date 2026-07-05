@@ -29,31 +29,78 @@ npm run format         # run prettier
 Each package can also be built in isolation via `npm run build --workspace <name>`
 when preparing a release.
 
-## Deploy / Publish
+## Deploy / Publish a New Version
 
-1. Add a Changeset for any user-facing package change:
+This repo uses Changesets for packages under `packages/*`. The root
+`@remino/reslib` package is not part of the Changesets workspace, so do not add
+it to changeset files unless the workspace config is changed first.
 
-	```bash
-	npm run changeset
-	```
+`npm run release` prepares package versions locally. It does not publish
+anything. `npm run publish:packages` is the explicit npm publish step, and
+Changesets will publish the bumped workspace packages that are not already on
+npm.
 
-2. Verify the workspace:
+1. Make the code/docs change and commit it with a changeset:
 
 	```bash
 	npm test
 	npm run build
+	npm run changeset
+	git add .
+	git commit -m "Describe the package change"
 	```
 
-3. Apply version bumps, rebuild packages, and refresh `package-lock.json`:
+	The changeset should name the package under `packages/*`, for example:
+
+	```md
+	---
+	'@remino/functions': minor
+	---
+
+	Add copy-buttons
+	```
+
+2. Before versioning, confirm Changesets sees the package that should publish:
+
+	```bash
+	npx changeset status --verbose
+	```
+
+	For a functions release, the output must include something like:
+
+	```text
+	Packages to be bumped at minor
+	- @remino/functions 1.2.0
+	```
+
+3. Apply the version bump and rebuild:
 
 	```bash
 	npm run release
 	```
 
-4. Commit the source changes, generated version changes, and lockfile update.
+	This consumes the changeset, updates package versions, rebuilds packages, and
+	refreshes `package-lock.json`.
 
-5. Publish packages to npm:
+4. Verify package versions:
+
+	```bash
+	npm run version:list
+	```
+
+5. Commit the generated release changes:
+
+	```bash
+	git status
+	git add .
+	git commit -m "Version packages"
+	```
+
+6. Publish the bumped packages:
 
 	```bash
 	npm run publish:packages
 	```
+
+	Do not run `npm publish --workspace ...` unless `changeset publish` fails and
+	you intentionally want to bypass Changesets.
