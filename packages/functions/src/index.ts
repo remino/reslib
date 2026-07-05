@@ -1,4 +1,5 @@
 export { default as dig, undig } from './dig'
+export { addCopyButtons, type CopyButtonsOptions } from './copy-buttons'
 export { onScrollOrResize, preventDefaultIfTrue } from './events'
 export { default as feedback } from './feedback'
 export { default as init } from './init'
