@@ -5,10 +5,25 @@ import { loadTemplate } from './template'
 const EMPTY_IMAGE =
 	'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
+export const LAZYLOAD_REFRESH_EVENT = 'reslib:lazyload:refresh'
+
 interface Buckets {
 	inRange: HTMLImageElement[]
 	outOfRange: HTMLImageElement[]
 }
+
+type RefreshRoot = Document | DocumentFragment | Element
+interface RefreshDetail {
+	root?: unknown
+}
+
+const isRefreshRoot = (value: unknown): value is RefreshRoot =>
+	Boolean(
+		value &&
+			typeof value === 'object' &&
+			'querySelectorAll' in value &&
+			typeof value.querySelectorAll === 'function',
+	)
 
 const separateImagesInRange = (): Buckets =>
 	Array.from(
@@ -61,18 +76,41 @@ export const loadImagesInRange = (): void => {
 	outOfRange.forEach(unloadImage)
 }
 
-export const loadLazyloadTemplates = (): void => {
-	document
-		.querySelectorAll<HTMLTemplateElement>('template.lazyload')
-		.forEach((template) => {
-			loadTemplate(template)
-		})
+export const loadLazyloadTemplates = (root: ParentNode = document): void => {
+	root.querySelectorAll<HTMLTemplateElement>('template.lazyload')
+			.forEach((template) => {
+				loadTemplate(template)
+			})
 }
 
-const init = (): void => {
-	loadLazyloadTemplates()
+export const refreshLazyloadImages = (root: ParentNode = document): void => {
+	loadLazyloadTemplates(root)
 	loadImagesInRange()
-	onScrollOrResize(loadImagesInRange)
+}
+
+const handleRefreshEvent = (event: Event): void => {
+	const detail: RefreshDetail | null =
+		'detail' in event && event.detail && typeof event.detail === 'object'
+			? (event.detail as RefreshDetail)
+			: null
+	if (!isRefreshRoot(detail?.root)) {
+		refreshLazyloadImages()
+		return
+	}
+
+	refreshLazyloadImages(detail.root)
+}
+
+let initialized = false
+
+const init = (): void => {
+	if (!initialized) {
+		onScrollOrResize(loadImagesInRange)
+		document.addEventListener(LAZYLOAD_REFRESH_EVENT, handleRefreshEvent)
+		initialized = true
+	}
+
+	refreshLazyloadImages()
 }
 
 export default init

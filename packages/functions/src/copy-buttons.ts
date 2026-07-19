@@ -44,6 +44,8 @@ export const addCopyButtons = ({
 
 		button.addEventListener('click', async () => {
 			try {
+				// Requires the browser Clipboard API, typically available only in
+				// secure contexts such as HTTPS or localhost.
 				await navigator.clipboard.writeText(code.textContent ?? '')
 
 				button.setAttribute('aria-live', 'assertive')
