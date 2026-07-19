@@ -17,6 +17,8 @@ interface RefreshDetail {
 	root?: unknown
 }
 
+const LAZYLOAD_SELECTOR = 'template.lazyload, img[data-src]'
+
 const isRefreshRoot = (value: unknown): value is RefreshRoot =>
 	Boolean(
 		value &&
@@ -24,6 +26,11 @@ const isRefreshRoot = (value: unknown): value is RefreshRoot =>
 			'querySelectorAll' in value &&
 			typeof value.querySelectorAll === 'function',
 	)
+
+const hasLazyloadCandidates = (node: Node): node is ParentNode =>
+	node instanceof Element &&
+	(node.matches(LAZYLOAD_SELECTOR) ||
+		Boolean(node.querySelector(LAZYLOAD_SELECTOR)))
 
 const separateImagesInRange = (): Buckets =>
 	Array.from(
@@ -102,11 +109,42 @@ const handleRefreshEvent = (event: Event): void => {
 }
 
 let initialized = false
+let observer: MutationObserver | null = null
+
+const observeLazyloadMutations = (): void => {
+	if (observer || !document.body) return
+
+	let pending = false
+
+	observer = new MutationObserver((mutations) => {
+		if (
+			!mutations.some((mutation) =>
+				Array.from(mutation.addedNodes).some(hasLazyloadCandidates),
+			)
+		) {
+			return
+		}
+
+		if (pending) return
+		pending = true
+
+		queueMicrotask(() => {
+			pending = false
+			refreshLazyloadImages()
+		})
+	})
+
+	observer.observe(document.body, {
+		childList: true,
+		subtree: true,
+	})
+}
 
 const init = (): void => {
 	if (!initialized) {
 		onScrollOrResize(loadImagesInRange)
 		document.addEventListener(LAZYLOAD_REFRESH_EVENT, handleRefreshEvent)
+		observeLazyloadMutations()
 		initialized = true
 	}
 

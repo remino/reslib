@@ -77,4 +77,20 @@ describe('lazyloadImages', () => {
 			'/images/direct.avif',
 		)
 	})
+
+	it('auto-refreshes when lazyload DOM is inserted later', async () => {
+		const lazyloadModule = await import('../src/lazyload-images')
+
+		lazyloadModule.default()
+		document.body.innerHTML =
+			'<div id="swap-root"><template class="lazyload"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/images/observer.avif" /></template></div>'
+
+		await Promise.resolve()
+		await Promise.resolve()
+
+		expect(document.querySelector('template.lazyload')).toBeNull()
+		expect(document.querySelector('img')?.getAttribute('data-src')).toBe(
+			'/images/observer.avif',
+		)
+	})
 })
