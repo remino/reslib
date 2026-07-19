@@ -13,6 +13,7 @@ Every utility lives in its own publishable package under `packages/`, and the
 - `@remino/remark-video-directive` – remark directive handler
 - `@remino/rehype-back-to-top-nav` – rehype “back to top” helper
 - `@remino/scroll` – scroll/section controls
+- `@remino/swup-html-class-plugin` – swup plugin for syncing filtered next-page classes onto `<html>`
 
 See the individual package READMEs/entry files for details on usage.
 

@@ -1,0 +1,30 @@
+{
+	"name": "@remino/swup-html-class-plugin",
+	"version": "0.1.0",
+	"description": "Swup plugin that syncs filtered classes from the next page onto the html element.",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"clean": "rimraf dist",
+		"test": "vitest run"
+	},
+	"peerDependencies": {
+		"swup": "^4.0.0"
+	},
+	"author": {
+		"name": "Rémino Rem",
+		"url": "https://remino.net/"
+	},
+	"license": "ISC"
+}
