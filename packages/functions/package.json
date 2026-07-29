@@ -1,6 +1,6 @@
 {
 	"name": "@remino/functions",
-	"version": "1.3.1",
+	"version": "1.3.2",
 	"description": "Framework-agnostic helper functions shared across Rémino sites.",
 	"type": "module",
 	"main": "./dist/index.js",
