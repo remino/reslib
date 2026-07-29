@@ -3,6 +3,8 @@ export interface CopyButtonsOptions {
 	blockSelector?: string
 	codeSelector?: string
 	buttonClassName?: string
+	wrapperElement?: boolean | string
+	wrapperClass?: string
 	label?: string
 	copiedLabel?: string
 	errorLabel?: string
@@ -10,31 +12,76 @@ export interface CopyButtonsOptions {
 }
 
 const hasExistingButton = (
-	block: HTMLElement,
+	container: HTMLElement,
 	buttonClassName: string,
 ): boolean =>
-	Array.from(block.children).some(
+	Array.from(container.children).some(
 		(child) =>
 			child instanceof HTMLButtonElement &&
 			child.classList.contains(buttonClassName),
 	)
+
+const getWrapperTagName = (
+	wrapperElement: CopyButtonsOptions['wrapperElement'],
+): string | undefined => {
+	if (!wrapperElement) return undefined
+	if (wrapperElement === true) return 'div'
+
+	return wrapperElement
+}
+
+const ensureWrapper = (
+	block: HTMLElement,
+	wrapperTagName: string,
+	wrapperClass?: string,
+): HTMLElement => {
+	const parent = block.parentElement
+
+	if (
+		parent?.tagName.toLowerCase() === wrapperTagName &&
+		parent.firstElementChild === block
+	) {
+		if (wrapperClass !== undefined) {
+			parent.setAttribute('class', wrapperClass)
+		}
+
+		return parent
+	}
+
+	const wrapper = document.createElement(wrapperTagName)
+
+	if (wrapperClass !== undefined) {
+		wrapper.setAttribute('class', wrapperClass)
+	}
+
+	block.parentNode?.insertBefore(wrapper, block)
+	wrapper.appendChild(block)
+
+	return wrapper
+}
 
 export const addCopyButtons = ({
 	root = document,
 	blockSelector = '.code-block',
 	codeSelector = 'code',
 	buttonClassName = 'copy',
+	wrapperElement,
+	wrapperClass,
 	label = 'Copy',
 	copiedLabel = 'Copied!',
 	errorLabel = 'Unable to copy',
 	resetDelay = 1000,
 }: CopyButtonsOptions = {}): HTMLButtonElement[] => {
 	const buttons: HTMLButtonElement[] = []
+	const wrapperTagName = getWrapperTagName(wrapperElement)
 
 	root.querySelectorAll<HTMLElement>(blockSelector).forEach((block) => {
 		const code = block.querySelector(codeSelector)
+		const container = wrapperTagName
+			? ensureWrapper(block, wrapperTagName, wrapperClass)
+			: block
 
-		if (!code || hasExistingButton(block, buttonClassName)) return
+		if (!code || hasExistingButton(container, buttonClassName)) return
 
 		const button = document.createElement('button')
 
@@ -60,7 +107,7 @@ export const addCopyButtons = ({
 			}, resetDelay)
 		})
 
-		block.appendChild(button)
+		container.appendChild(button)
 		buttons.push(button)
 	})
 

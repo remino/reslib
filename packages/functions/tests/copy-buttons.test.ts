@@ -90,4 +90,59 @@ describe('addCopyButtons', () => {
 		expect(buttons[0].className).toBe('copy-code')
 		expect(buttons[0].textContent).toBe('Copy code')
 	})
+
+	it('wraps blocks in a div when wrapperElement is true', () => {
+		document.body.innerHTML =
+			'<section><div class="code-block"><pre><code>npm test</code></pre></div></section>'
+
+		const [button] = addCopyButtons({ wrapperElement: true })
+		const wrapper = document.querySelector('section > div > .code-block')
+			?.parentElement as HTMLElement | null
+
+		expect(button).toBeTruthy()
+		expect(wrapper?.tagName).toBe('DIV')
+		expect(wrapper?.querySelector('.code-block')).toBeTruthy()
+		expect(wrapper?.querySelector('button.copy')).toBe(button)
+	})
+
+	it('wraps blocks in a custom element and applies wrapperClass', () => {
+		document.body.innerHTML =
+			'<section><pre class="code-block"><code>pnpm test</code></pre></section>'
+
+		const [button] = addCopyButtons({
+			wrapperElement: 'figure',
+			wrapperClass: 'code-shell',
+		})
+		const wrapper = document.querySelector(
+			'section > figure.code-shell',
+		) as HTMLElement | null
+
+		expect(wrapper?.firstElementChild?.className).toBe('code-block')
+		expect(wrapper?.lastElementChild).toBe(button)
+	})
+
+	it('ignores wrapperClass when wrapperElement is falsy', () => {
+		document.body.innerHTML =
+			'<div class="code-block"><pre><code>npm test</code></pre></div>'
+
+		addCopyButtons({ wrapperClass: 'code-shell' })
+
+		expect(document.querySelector('.code-shell')).toBeNull()
+		expect(document.querySelector('.code-block > button.copy')).toBeTruthy()
+	})
+
+	it('does not re-wrap or add duplicate buttons when wrappers are enabled', () => {
+		document.body.innerHTML =
+			'<section><div class="code-block"><pre><code>npm test</code></pre></div></section>'
+
+		addCopyButtons({ wrapperElement: true, wrapperClass: 'code-shell' })
+		const buttons = addCopyButtons({
+			wrapperElement: true,
+			wrapperClass: 'code-shell',
+		})
+
+		expect(buttons).toHaveLength(0)
+		expect(document.querySelectorAll('section > .code-shell')).toHaveLength(1)
+		expect(document.querySelectorAll('.code-shell > button.copy')).toHaveLength(1)
+	})
 })
